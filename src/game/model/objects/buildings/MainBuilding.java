@@ -25,10 +25,11 @@ public class MainBuilding extends BigBuilding {
         for (Resource r : Resource.values()) {
             toDeliver.put(r, new LinkedList<>());
         }
+        world.setPlayersMainBuilding(this);
     }
 
     public static MainBuilding getAddress() {
-        return address;
+        return world.getPlayersMainBuilding();
     }
 
     public static boolean checkBuildable(Field p) {

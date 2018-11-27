@@ -43,6 +43,17 @@ public class Main extends Application {
      * default screen height
      */
     static int screenH;
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public static void setPrimaryStage(Stage primaryStage) {
+        Main.primaryStage = primaryStage;
+        primaryStage.show();
+        primaryStage.setFullScreen(true);
+    }
+
     private static Stage primaryStage;
     private static AnchorPane root;
     static private Timeline tick;
@@ -56,7 +67,7 @@ public class Main extends Application {
             GameObject.setWorld(null);
             System.gc();
         }
-        new MainMenu(primaryStage);
+        MainMenu.SetUp(primaryStage);
     }
 
     /**
@@ -68,7 +79,7 @@ public class Main extends Application {
             GameObject.setWorld(null);
             System.gc();
         }
-        new MainMenu(primaryStage).gameLost();
+        MainMenu.gameLost();
     }
     /**
      * Starts the game loop. every 1 sec ticks the world and redraws.
@@ -101,8 +112,10 @@ public class Main extends Application {
      * Generates a new world for the game, then starts (call's playGame)
      */
     public static void newGame() {
+        primaryStage.close();
+        setPrimaryStage(new Stage());
+        root = new AnchorPane();
         primaryStage.setScene(new Scene(root, screenW, screenH));
-        primaryStage.setFullScreen(false);
         World w = new World();
         GameObject.setWorld(w);
         Building main = new MainBuilding(w.getFieldAtLocation(new Point(64, 64)));
@@ -139,7 +152,6 @@ public class Main extends Application {
      */
     public static void LoadGame(String s) {
         primaryStage.setScene(new Scene(root, screenW, screenH));
-        primaryStage.setFullScreen(false);
         try {
             ObjectInputStream is = new ObjectInputStream(new GZIPInputStream(new FileInputStream(new File("savedGames/" + s + ".bin"))));
             World w = (World) is.readObject();
@@ -197,11 +209,10 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
-        primaryStage = stage;
+        setPrimaryStage(stage);
         root = new AnchorPane();
         primaryStage.setTitle("StrateGame");
         primaryStage.setScene(new Scene(root, screenW, screenH));
-        primaryStage.setFullScreen(false);
         primaryStage.show();
         LoadSavedGamesList();
         mainMenu();

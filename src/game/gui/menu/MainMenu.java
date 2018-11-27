@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,35 +26,42 @@ import static game.gui.Main.saves;
 
 /**
  * Main menu screens defined here
+ * Singleton
  */
 public class MainMenu {
     /**
      * App's defauult window
      */
-    private Stage window;
+    static private Stage GetWindow(){
+        return Main.getPrimaryStage();
+    }
+    static private void SetWindow(Stage stage){
+         Main.setPrimaryStage(stage);
+    }
     /**
      * Panel in the center of screen
      */
-    private FlowPane midPanel = new FlowPane();
+    static private FlowPane midPanel = new FlowPane();
     /**
      * Root panel
      */
-    private BorderPane panel = new BorderPane();
+    static private BorderPane panel = new BorderPane();
 
     /**
      * Creates a new instance
-     * @param window main window
+     * @param w main window
      */
-    public MainMenu(Stage window) {
-        this.window = window;
+    static public void SetUp(Stage w) {
+        SetWindow( w);
         Menu();
     }
 
     /**
      * Loads the main menu screen
      */
-    private void Menu() {
-
+    static private void Menu() {
+        panel = new BorderPane();
+        midPanel = new FlowPane();
         midPanel.setVgap(10);
         midPanel.setOrientation(Orientation.VERTICAL);
         midPanel.setAlignment(Pos.CENTER);
@@ -66,15 +74,16 @@ public class MainMenu {
         BorderPane.setAlignment(midPanel, Pos.CENTER);
         panel.setCenter(midPanel);
         panel.setBackground(new Background(new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-
-        window.getScene().setRoot(panel);
-        window.show();
+        GetWindow().close();
+        SetWindow( new Stage());
+        GetWindow().setScene(new Scene(panel,1920, 1080));
+        GetWindow().show();
     }
 
     /**
      * Adds then new game button to the center.
      */
-    private void addNewGameButton() {
+    static private void addNewGameButton() {
         GameMenuButton button = new GameMenuButton("New Game",
                 new EventHandler<ActionEvent>() {
                     @Override
@@ -88,7 +97,7 @@ public class MainMenu {
     /**
      * Adds the exit button
      */
-    private void addExitButton() {
+    static private void addExitButton() {
         GameMenuButton button = new GameMenuButton("Exit Game",
                 new EventHandler<ActionEvent>() {
                     @Override
@@ -101,7 +110,7 @@ public class MainMenu {
 /**
  * Adds the Load game button
  */
-    private void addLoadGameButton() {
+    static private void addLoadGameButton() {
         GameMenuButton button = new GameMenuButton("Load Game", new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -114,7 +123,7 @@ public class MainMenu {
     /**
      * Opens the game loading table.
      */
-    private void goLoadGame() {
+    static private void goLoadGame() {
         BorderPane frame = new BorderPane();
         TableView table = new TableView();
         table.setEditable(false);
@@ -150,12 +159,16 @@ public class MainMenu {
     /**
      * Shows the game lost screen
      */
-    public void gameLost(){
+    static public void gameLost(){
+        midPanel = new FlowPane();
+        panel = new BorderPane();
         midPanel.getChildrenUnmodifiable().clear();
         midPanel.setVgap(10);
         midPanel.setOrientation(Orientation.VERTICAL);
         midPanel.setAlignment(Pos.CENTER);
         TextField t = new TextField("Sorry, you lost the game");
+        t.setEditable(false);
+        t.setAlignment(Pos.CENTER);
         midPanel.getChildren().add(t);
         midPanel.getChildren().add(new GameMenuButton("Ok, go back to the menu", event -> Menu()));
         midPanel.getChildren().add(new GameMenuButton("I'm mad, exit ", event -> System.exit(0)));
@@ -163,8 +176,34 @@ public class MainMenu {
         BorderPane.setAlignment(midPanel, Pos.CENTER);
         panel.setCenter(midPanel);
         panel.setBackground(new Background(new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        window.getScene().setRoot(panel);
-        window.show();
+        GetWindow().close();
+        SetWindow( new Stage());
+        GetWindow().setScene(new Scene(panel, 1920, 1080));
+        GetWindow().show();
     }
-
+    /**
+     * Shows the game lost screen
+     */
+    static public void gameWon(){
+        midPanel = new FlowPane();
+        panel = new BorderPane();
+        midPanel.getChildrenUnmodifiable().clear();
+        midPanel.setVgap(10);
+        midPanel.setOrientation(Orientation.VERTICAL);
+        midPanel.setAlignment(Pos.CENTER);
+        TextField t = new TextField("Yeey you won");
+        t.setEditable(false);
+        t.setAlignment(Pos.CENTER);
+        midPanel.getChildren().add(t);
+        midPanel.getChildren().add(new GameMenuButton("Awesome, go to the menu", event -> Menu()));
+        midPanel.getChildren().add(new GameMenuButton("Thx, that's enough for now", event -> System.exit(0)));
+        Image bgImage = new Image("file:resources\\MenuBg.jpg");
+        BorderPane.setAlignment(midPanel, Pos.CENTER);
+        panel.setCenter(midPanel);
+        panel.setBackground(new Background(new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        GetWindow().close();
+        SetWindow( new Stage());
+        GetWindow().setScene(new Scene(panel, 1920, 1080));
+        GetWindow().show();
+    }
 }

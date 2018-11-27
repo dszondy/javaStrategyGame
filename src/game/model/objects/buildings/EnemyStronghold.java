@@ -13,6 +13,7 @@ public class EnemyStronghold extends BigBuilding {
 
     public EnemyStronghold(Field p) {
         super(p, false);
+        world.enemyCreated();
     }
 
     @Override
@@ -52,6 +53,12 @@ public class EnemyStronghold extends BigBuilding {
     @Override
     public Drawer getDrawer() {
         return DrawerCreator.getDrawer(this);
+    }
+
+    @Override
+    public void die() {
+        super.die();
+        world.enemyDied();
     }
 }
 

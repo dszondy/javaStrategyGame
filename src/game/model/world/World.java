@@ -3,6 +3,8 @@ package game.model.world;
 import game.model.Directions;
 import game.model.Tickable;
 import game.model.Visible;
+import game.model.objects.buildings.EnemyStronghold;
+import game.model.objects.buildings.MainBuilding;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -27,6 +29,16 @@ public class World implements Serializable {
      * Set of the visible objects (so no will be drawn twice)
      */
     private Set<Visible> visibles = new HashSet<>();
+
+    /**
+     * It stores the main building(i needed a variable for serialization)
+     */
+    private MainBuilding playersMainBuilding;
+
+    /**
+     * For win conditions. Counts the enemy's (note if no enemy at start won't trigger)
+     */
+    private Integer enemyCount = 0;
 
     /**
      * Creates a new empty world at a given size.
@@ -150,4 +162,36 @@ public class World implements Serializable {
     }
 
 
+    /**
+     * Returns the main building's reference. Should not be used. Use the MainBuilding.getAddress() for this purpose.
+     * @return
+     */
+    @Deprecated
+    public MainBuilding getPlayersMainBuilding() {
+        return playersMainBuilding;
+    }
+
+    /**
+     * Should not be used. The MainBuilding sets it in it's constructor
+     * @param playersMainBuilding
+     */
+    @Deprecated
+    public void setPlayersMainBuilding(MainBuilding playersMainBuilding) {
+        this.playersMainBuilding = playersMainBuilding;
+    }
+
+    /**
+     * For enemy stronghold created
+     */
+    public void enemyCreated() {
+        enemyCount++;
+    }
+
+    /**
+     * when enemy stronghold destroyed.
+     * Checks win conditions.
+     */
+    public void enemyDied() {
+        enemyCount--;
+    }
 }
