@@ -80,7 +80,6 @@ public class MainBuildingDrawer extends BuildingDrawer {
     @Override
     public Node draw(GuiState state) {
         Node d = super.draw(state);
-        d.setPickOnBounds(true);
         TableView<ResourcePair> table = new TableView();
         TableColumn ResCol = new TableColumn("Resources");
         TableColumn CntCol =  new TableColumn("Count");

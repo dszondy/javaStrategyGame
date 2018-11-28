@@ -19,7 +19,7 @@ public class Mine extends Building{
      */
     public Mine(Field p) {
         super(p);
-        priceToEnable(3, 1);
+        priceToEnable(4, 1);
     }
 
     /**

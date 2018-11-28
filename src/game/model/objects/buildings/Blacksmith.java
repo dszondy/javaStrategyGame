@@ -19,7 +19,7 @@ public class Blacksmith extends MedBuilding {
      */
     public Blacksmith(Field p) {
         super(p);
-        priceToEnable(4, 3);
+        priceToEnable(5, 4);
     }
 
     /**

@@ -16,7 +16,7 @@ import java.awt.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestClass {
+public class IntegrityTests {
     World world;
     @Before
     public void setUp() throws Exception {
@@ -30,7 +30,7 @@ public class TestClass {
         Building building = new StoneMine(world.getFieldAtLocation(new Point(64, 64)));
         new EnemyStronghold(world.getFieldAtLocation(new Point(74, 64)));
         assertTrue("the building died befour stepping", building.isAlive());
-        for(int i=0; i<10000 && mainBuilding.isAlive(); i++){
+        for(int i=0; i<10000 && building.isAlive(); i++){
             try {
                 world.tickAll();
             }catch (Exception e){};

@@ -93,4 +93,12 @@ public class Path<T> implements Serializable {
         return destObj;
     }
 
+    /**
+     * Returns the paths length
+     * @return path's length
+     */
+    public int getLength(){
+        return path.size();
+    }
+
 }

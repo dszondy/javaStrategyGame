@@ -28,7 +28,7 @@ public class Stronghold extends BigBuilding {
      */
     public Stronghold(Field p) {
         super(p);
-        priceToEnable(3, 10);
+        priceToEnable(5, 15);
     }
 
     /**

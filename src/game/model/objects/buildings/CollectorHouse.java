@@ -34,7 +34,7 @@ public class CollectorHouse<T extends ResourceCollector> extends MedBuilding {
         public CollectorHouse(Field p, int defaultWorkersNumber) {
             super(p);
             workersInside = defaultWorkersNumber;
-            priceToEnable(3, 1);
+            priceToEnable(5, 2);
         }
 
     /**
