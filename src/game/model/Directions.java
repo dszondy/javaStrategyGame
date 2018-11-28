@@ -51,8 +51,8 @@ public enum Directions {
 
     /**
      * Changes a direction to it's opposite:
-     *     Left<->Right
-     *     Up<->Down
+     *     Left-Right
+     *     Up-Down
      * @return The opposite direction
      */
     public Directions flip() {

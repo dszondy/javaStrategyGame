@@ -8,13 +8,29 @@ import game.model.world.Field;
 
 import java.util.ArrayList;
 
+/**
+ * In this medium sized building we can create Swords from iron
+ * Costs 4 wood and 3 stone to build.
+ */
 public class Blacksmith extends MedBuilding {
+    /**
+     * Creates a blacksmith building
+     * @param p
+     */
     public Blacksmith(Field p) {
         super(p);
         priceToEnable(4, 3);
     }
 
+    /**
+     * Counts the asked resources.
+     */
     private Integer ongo = 0;
+
+    /**
+     * Asks for iron and if one had arrived it creates a sword and sends back to the main building
+     * @return true while it's alive
+     */
     @Override
     public boolean tick() {
         if(!isAlive())

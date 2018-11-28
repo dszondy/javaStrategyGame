@@ -13,10 +13,23 @@ import java.awt.geom.Point2D;
  * Simple class that defines the drawable objects. Every visible object creates one of it's children
  */
 public abstract class Drawer {
+    /**
+     * Standard field width
+     */
     public static final int fieldWidth = 256;
+    /**
+     * Standard field height
+     */
     public static final int fieldHeight = 128;
+    /**
+     * Position
+     */
     protected Point stdpos;
 
+    /**
+     * Creates a drawer with position
+     * @param stdpos the position point
+     */
     public Drawer(Point stdpos) {
         this.stdpos = stdpos;
     }
@@ -47,8 +60,17 @@ public abstract class Drawer {
     }
 
 
+    /**
+     * Returns the image of the object
+     * @return image
+     */
     public abstract Image getImage();
 
+    /**
+     * Creates a node with the object
+     * @param state the game state
+     * @return the node
+     */
     public Node draw(GuiState state) {
         ImageView img = new ImageView(getImage());
         img.setSmooth(true);
@@ -61,6 +83,12 @@ public abstract class Drawer {
         return img;
     }
 
+    /**
+     * checks if the object will be visible
+     * @param state game state
+     * @param point the object's position
+     * @return false if is invisible true if it is visible
+     */
     static  public boolean checkInScreen(GuiState state, Point point) {
         Point2D p = calculatePosition(state, point);
         return !(p.getX() < 0 - 4 * fieldWidth || p.getX() > state.getScreenW() + 4 * fieldWidth || p.getY() < 0 - 4 * fieldHeight || p.getY() > state.getScreenH() + 4 * fieldHeight);

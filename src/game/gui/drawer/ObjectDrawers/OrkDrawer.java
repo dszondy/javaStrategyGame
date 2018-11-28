@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 
+/**
+ * for drawing orks
+ */
 public class OrkDrawer extends MovableDrawer {
     static private javafx.scene.image.Image defImg = new javafx.scene.image.Image("file:resources\\Ork.png");
 

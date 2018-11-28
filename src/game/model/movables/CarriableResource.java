@@ -12,41 +12,89 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+/**
+ * Wrapper class for resources. Stores 1 resource, from one type. It is for transportation.
+ * When placed on the road system, it can plan it's way to it's destination.
+ */
 public class CarriableResource extends WorldObject {
+    /**
+     * the resource it stores
+     */
     private final Resource r;
 
+    /**
+     * @return the destination of this package or null if no destination set
+     */
     public Building getDestination() {
         return destination;
     }
 
+    /**
+     * The destination
+     */
     private Building destination;
+    /**
+     * The location of the object that holds this
+     */
     private WorldObject at;
 
+    /**
+     * @return the next sign on it's way to it's destination
+     */
     public Sign getNext() {
         return next;
     }
 
+    /**
+     *  next sign on it's way to it's destination
+     */
     private Sign next;
 
+    /**
+     * Creates a new CarriableResource without destination
+     * @param r resource type
+     * @param at the object it holds
+     */
     public CarriableResource(Resource r, WorldObject at) {
         super(at.getLocation());
         this.r = r;
         this.at = at;
     }
+
+    /**
+     * Creates a resource at a sign, for transportation on roads, and plan's its way to the destination
+     * @param r resource type
+     * @param at the sign it's placed on
+     * @param dst destination
+     */
     public CarriableResource(Resource r, Sign at, Building dst) {
         this(r, at);
         destination = dst;
         next = findNext(at);
     }
 
+    /**
+     * An object picks up the package
+     * @param transporter the objet which picked it up
+     */
     public void pickedUp(Transporter transporter){
         at = transporter;
     }
+
+    /**
+     * The object has been placed on a sign
+     * @param sign the sign it's placed on
+     */
     public void DroppedDown(Sign sign){
         at = sign;
         next = findNext(sign);
     }
 
+    /**
+     * Finds the next sign on the road system, towards it's destination
+     * @param sign Actual sign
+     * @return the next in it's way
+     */
     public Sign findNext(Sign sign) {
         try{
         if(sign == destination.getEntry())
@@ -82,9 +130,16 @@ public class CarriableResource extends WorldObject {
         return null;
         }
 
+    /**
+     * @return the type of the resource it holds
+     */
     public Resource getR() {
         return r;
     }
+
+    /**
+     * The resource dies
+     */
     public void die(){
         super.die();
     }
@@ -94,14 +149,16 @@ public class CarriableResource extends WorldObject {
         return DrawerCreator.getDrawer(this);
     }
 
-
+    /**
+     * The package follows it's carrier's (at) location. If it can't find a way, it dies and asks a new resource.
+     * @return
+     */
     @Override
     public boolean tick() {
         if(next == null && destination!=null){
-            die();
             MainBuilding.getAddress().askResource(getR(),destination);
-            return false;
-        }
+            destination = MainBuilding.getAddress();
+            }
         location = at.getLocation();
         return true;
     }

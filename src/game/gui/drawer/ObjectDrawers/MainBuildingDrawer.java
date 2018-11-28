@@ -20,6 +20,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Draws the main building
+ */
 public class MainBuildingDrawer extends BuildingDrawer {
     static private javafx.scene.image.Image defImg = new javafx.scene.image.Image("file:resources\\MainBuilding.png");
     private MainBuilding m;
@@ -32,6 +35,11 @@ public class MainBuildingDrawer extends BuildingDrawer {
     public Image getImage() {
         return defImg;
     }
+
+    /**
+     * Lists the resources it stores
+     * @return the resources it has.
+     */
     public static java.util.List<ResourcePair> getResoures(){
         Map<Resource, Integer> map = MainBuilding.getAddress().getResources();
         java.util.List list = new ArrayList<ResourcePair>();
@@ -42,6 +50,10 @@ public class MainBuildingDrawer extends BuildingDrawer {
         }
         return list;
     }
+
+    /**
+     * the resources it has
+     */
     static class ResourcePair{
         ResourcePair(Resource r, Integer c){
             resource = new  SimpleStringProperty(r.toString());
@@ -60,6 +72,11 @@ public class MainBuildingDrawer extends BuildingDrawer {
         SimpleStringProperty count;
     }
 
+    /**
+     * draws the resources, and sets the cilck handler to create window which shows the resources
+     * @param state the game state
+     * @return the node
+     */
     @Override
     public Node draw(GuiState state) {
         Node d = super.draw(state);

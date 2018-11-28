@@ -15,9 +15,17 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Set;
 
+/**
+ * for drawing roads
+ */
 public class RoadDrawer extends Drawer {
     Set<Directions> lines;
 
+    /**
+     * Creates a road drawe
+     * @param stdpos its position in the game
+     * @param lines the directions of the road
+     */
     public RoadDrawer(Point stdpos, Set<Directions> lines) {
         super(stdpos);
         this.lines = lines;
@@ -28,11 +36,17 @@ public class RoadDrawer extends Drawer {
         return super.calculatePosition(state);
     }
 
+
     public boolean checkInScreen(GuiState state) {
         Point2D p = calculatePosition(state);
         return !(p.getX() < 0 - fieldWidth || p.getX() > state.getScreenW() + fieldWidth || p.getY() < 0 - fieldHeight || p.getY() > state.getScreenH() + fieldHeight);
     }
 
+    /**
+     * Creates it's drawe
+     * @param state game state
+     * @return the nopde
+     */
     public Node draw(GuiState state) {
         StackPane pane = new StackPane();
         ImageView img = new ImageView(getImage());
@@ -51,6 +65,10 @@ public class RoadDrawer extends Drawer {
         return pane;
     }
 
+    /**
+     * Creates it's image with low level graphics
+     * @return
+     */
     public Image getImage() {
         Canvas canvas = new Canvas(256, 128);
         canvas.getGraphicsContext2D().setLineWidth(12);

@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 
+/**
+ * Draws the blacksmith
+ */
 public class BlacksmithDrawer extends BuildingDrawer {
     public BlacksmithDrawer(Point stdpos) {
         super(stdpos, 2);

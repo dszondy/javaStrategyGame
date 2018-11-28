@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 
+/**
+ * Draws a warrior
+ */
 public class WarriorDrawer extends MovableDrawer {
 
     static private javafx.scene.image.Image defImg = new javafx.scene.image.Image("file:resources\\Warrior.png");

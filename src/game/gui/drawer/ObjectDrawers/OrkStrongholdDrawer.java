@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 
+/**
+ * For drawing ork strongholds
+ */
 public class OrkStrongholdDrawer extends BuildingDrawer {
     static private Image defImg = new Image("file:resources\\WoodFortress.png");
 

@@ -12,7 +12,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+/**
+ * Drawer for the game gui
+ */
 public class GuiDrawer {
+    /**
+     * Draws the guls
+     * @param root the root pane to draw on
+     * @param state tha game state
+     */
     public void draw(AnchorPane root, GuiState state) {
         FlowPane panel = new FlowPane();
         panel.setBackground(new Background(new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, new CornerRadii(5), new Insets(3))));
@@ -33,12 +41,17 @@ public class GuiDrawer {
         if (window != null)
             root.getChildren().add(window);
     }
+
+    /**
+     * Creates the savegame window
+     * @param state the game state
+     */
     void setSaveGameWindow(GuiState state){
         FlowPane pane = new FlowPane();
         TextField saveName = new TextField("Name");
         saveName.setEditable(true);
         pane.getChildren().add(saveName);
-        pane.getChildren().add(new GameMenuButton("Save", event -> Main.addSave(new Save(saveName.getText()))));
+        pane.getChildren().add(new GameMenuButton("Save", event -> {Main.addSave(new Save(saveName.getText())); state.rst();}));
         InnerWindow window = new InnerWindow(pane, event -> state.rst());
         state.setControlWindow(window);
     }

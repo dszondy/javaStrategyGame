@@ -21,8 +21,8 @@ public class Road extends WorldObject {
     /**
      * Creates a new road
      * @param p where
-     * @param d1
-     * @param d2
+     * @param d1 direction
+     * @param d2 direction
      */
     public Road(Field p, Directions d1, Directions d2) {
         super(p);

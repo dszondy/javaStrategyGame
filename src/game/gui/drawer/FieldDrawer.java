@@ -13,6 +13,9 @@ import javafx.scene.text.Text;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
+/**
+ * Draws a field
+ */
 public class FieldDrawer extends Drawer {
     static private Image defImg = new Image("file:resources\\grassField.png");
     protected Field field;

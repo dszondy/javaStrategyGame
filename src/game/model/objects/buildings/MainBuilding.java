@@ -61,8 +61,10 @@ public class MainBuilding extends BigBuilding {
         for (Resource r : Resource.values()) {
             while (resources.get(r) > 0 && toDeliver.get(r).size() > 0) {
                 Building to = toDeliver.get(r).remove(0);
-                if (to.isAlive())
+                if (to.isAlive()) {
                     entry.place(new CarriableResource(r, getEntry(), to));
+                    resources.put(r, resources.get(r)-1);
+                }
             }
         }
         return true;

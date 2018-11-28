@@ -12,17 +12,27 @@ import java.util.*;
 
 import static game.model.resources.Resource.STONE;
 
+/**
+ * Mines stone
+ */
 public class StoneMiner extends ResourceCollector<StoneMine, Rock> {
-    private boolean hasRock = false;
-    private Path<Rock> plan = null;
-    private Path<BuildingSign> hPath = null;
-
+    /**
+     * Creates a stone miner
+     * @param home the StoneMine it comes from
+     */
     public StoneMiner(StoneMine home) {
         super(home);
         setAction(new Action());
     }
+
+    /**
+     * Renameing for subclass usage
+     */
     private StoneMiner self = this;
 
+    /**
+     * Function for mineing stone
+     */
     class Action extends ResourceCollector.Action {
         @Override
         public CarriableResource get(WorldObject obj) {
@@ -32,13 +42,23 @@ public class StoneMiner extends ResourceCollector<StoneMine, Rock> {
         }
     }
 
+    /**
+     * Finds an object
+     * @param max max distance
+     * @return the path it found or null
+     */
     @Override
     public Path<Rock> FindObject(int max) {
         return FindRock(max);
     }
 
+    /**
+     * Finds a Rock
+     * @param max max distance
+     * @return the path it found or null
+     */
     public Path<Rock> FindRock(int max) {
-        Field start = this.getPlace();
+        Field start = this.getLocation();
         Map<Field, StoneProbe> finished = new HashMap<>();
         PriorityQueue<StoneProbe> notUsed = new PriorityQueue<>(new Comparator<StoneProbe>() {
             public int compare(StoneProbe o1, StoneProbe o2) {
@@ -72,17 +92,24 @@ public class StoneMiner extends ResourceCollector<StoneMine, Rock> {
         return null;
     }
 
+    /**
+     * it can tick
+     * @return true
+     */
     @Override
     public boolean canEverTick() {
         return true;
     }
+
 
     @Override
     public Drawer getDrawer() {
         return DrawerCreator.getDrawer(this);
     }
 
-
+    /**
+     * Probe for finding rock
+     */
     public class StoneProbe extends FreeProbe<Rock> {
         public StoneProbe(Field from, Field to, int distance) {
             super(from, to, distance);

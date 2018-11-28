@@ -7,9 +7,20 @@ import game.gui.drawer.Drawer;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
+/**
+ * Draws a building (abstract superclass
+ */
 public abstract class BuildingDrawer extends Drawer {
+    /**
+     * the width/height of the building
+     */
     int size;
 
+    /**
+     * creates the drawer
+     * @param stdpos position
+     * @param size size of the object
+     */
     public BuildingDrawer(Point stdpos, int size) {
         super(stdpos);
         this.size = size;

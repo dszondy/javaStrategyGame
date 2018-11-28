@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 
+/**
+ * Draws a warehouse(Lumber or stonemine)
+ */
 public class WarehouseDrawer extends BuildingDrawer {
     static private Image defImg = new Image("file:resources\\Warehouse.png");
 

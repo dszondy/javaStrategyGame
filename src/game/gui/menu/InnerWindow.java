@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
  */
 public class InnerWindow extends BorderPane {
     /**
-     * @param content
+     * @param content a pane that is filled with the content of the panel
      * @param onClose handles the close (the x in the corner is pressed)
      */
     public InnerWindow(Pane content, EventHandler<ActionEvent> onClose) {

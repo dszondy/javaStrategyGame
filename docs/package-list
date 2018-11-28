@@ -1,10 +1,11 @@
+game
 game.gui
 game.gui.drawer
 game.gui.drawer.ObjectDrawers
 game.gui.menu
-model
-model.movables
-model.objects
-model.objects.buildings
-model.resources
-model.world
+game.model
+game.model.movables
+game.model.objects
+game.model.objects.buildings
+game.model.resources
+game.model.world

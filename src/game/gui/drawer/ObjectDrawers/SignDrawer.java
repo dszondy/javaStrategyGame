@@ -16,17 +16,37 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Set;
 
+/**
+ * Draws a sign
+ */
 public class SignDrawer extends Drawer {
     static private Image defImg = new Image("file:resources\\Sign.png");
+    /**
+     * The directions it has
+     */
     protected Set<Directions> dirs;
+    /**
+     * its owner
+     */
     protected Sign sign;
 
+    /**
+     * Creates a sign drawer
+     * @param stdpos position
+     * @param lines game state
+     * @param sign the object it draws
+     */
     public SignDrawer(Point stdpos, Set<Directions> lines, Sign sign) {
         super(stdpos);
         dirs = lines;
         this.sign = sign;
     }
 
+    /**
+     * Calculates the position in screen
+     * @param state tha game state
+     * @return position
+     */
     protected Point2D calculatePosition(GuiState state) {
         Point2D p = super.calculatePosition(state);
         p.setLocation(p.getX(), p.getY() - state.getZoom() * Drawer.fieldHeight);
@@ -37,6 +57,10 @@ public class SignDrawer extends Drawer {
         return defImg;
     }
 
+    /**
+     * Draws it road parts, with low level graphics
+     * @return the image it drawn
+     */
     public Image roadDraw() {
         javafx.scene.canvas.Canvas canvas = new Canvas(fieldWidth, 2 * fieldHeight);
         canvas.getGraphicsContext2D().setLineWidth(12);
@@ -68,6 +92,11 @@ public class SignDrawer extends Drawer {
         return canvas.snapshot(sp, null);
     }
 
+    /**
+     * Draws the object and sets mouse clicks handlers
+     * @param state the game state
+     * @return the node
+     */
     @Override
     public Node draw(GuiState state) {
         StackPane pane = new StackPane();

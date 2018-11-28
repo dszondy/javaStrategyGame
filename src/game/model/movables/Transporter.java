@@ -9,13 +9,37 @@ import game.model.world.Field;
 
 import java.util.*;
 
+/**
+ * Little donkey(or horse or mule or whatever) for transportation at roads
+ * (it's really clever because it builds it's roads.
+ */
 public class Transporter extends FreeWalker {
+    /**
+     * The index of the field it is on at road
+     */
     private Integer position = 0;
+    /**
+     * the direction it goes
+     */
     private Integer direction = -1;
+    /**
+     * The road it is responsible for
+     */
     private LinkedList<Road> road = null;
+    /**
+     * The end signs of the roads
+     */
     private Sign[] ends = new Sign[2];
+    /**
+     * The resourceit carries
+     */
     private CarriableResource carry = null;
 
+    /**
+     * Creates a transporter and builds it's road
+     * @param start the start of the road
+     * @param end the end of the road
+     */
     public Transporter(Sign start, Sign end) {
         super(start.getLocation());
         ends[0] = start;
@@ -26,6 +50,10 @@ public class Transporter extends FreeWalker {
             die();
         }
     }
+
+    /**
+     * If it des it unregisters the roads at the signs and clears it
+     */
     public void die(){
         super.die();
         if(road!=null) {
@@ -37,10 +65,20 @@ public class Transporter extends FreeWalker {
         }
     }
 
+    /**
+     * it live so it ticks
+     * @return true
+     */
     public boolean canEverTick() {
         return true;
     }
 
+    /**
+     * Finds a path for the road and builds it
+     * @param f  the starting field
+     * @param dest the destination
+     * @param max the max length of the road
+     */
     public void FindRoad(Field f, Sign dest, int max) {
         Map<Field, RoadProbe> finished = new HashMap<>();
         PriorityQueue<RoadProbe> notUsed = new PriorityQueue<>(new Comparator<RoadProbe>() {
@@ -75,6 +113,10 @@ public class Transporter extends FreeWalker {
         }
     }
 
+    /**
+     * If the road had been build it just goes from one end to the other, and carries a package if it can.
+     *@return true while alive
+     */
     @Override
     public boolean tick() {
         if(!isAlive())
@@ -126,15 +168,32 @@ public class Transporter extends FreeWalker {
         return DrawerCreator.getDrawer(this);
     }
 
+    /**
+     * probe for collectiong field info.
+     * this one needs clear fields insted of steppable ones.
+     */
     public class RoadProbe extends FreeProbe<Sign> {
+        /**
+         * Stores the dir it come from
+         */
         Directions entryDirection;
 
+        /**
+         * Creates a probe
+         * @param from last field
+         * @param to actual field
+         * @param distance the distance from start
+         * @param dir the direction it come form
+         */
         public RoadProbe(Field from, Field to, int distance, Directions dir) {
             super(from, to, distance);
             entryDirection = dir;
             to.acceptProbe(this);
         }
 
+        /**
+         * @return the entry direction
+         */
         public Directions getEntryDirection() {
             return entryDirection;
         }

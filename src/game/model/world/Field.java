@@ -34,7 +34,7 @@ public class Field extends GameObject implements Visible, Visitable {
 
     /**
      * Creates an empty field at location with random resource
-     * @param location
+     * @param location the place it will be created on
      */
     public Field(Point location) {
         this(location, new Random().nextInt(10)<=1 ? new ResourceDeposit(Resource.IRON, new Random().nextInt(45)+5): null);
@@ -42,7 +42,7 @@ public class Field extends GameObject implements Visible, Visitable {
 
     /**
      * Creates an empty field at location with random resource
-     * @param location
+     * @param location the place it will be created on
      * @param d the deposit to set it's data
      */
     public Field(Point location, ResourceDeposit d) {
@@ -149,7 +149,7 @@ public class Field extends GameObject implements Visible, Visitable {
 
     /**
      * Probes for finding paths and objects
-     * @param probe
+     * @param probe the probe that visits it
      */
     @Override
     public void acceptProbe(StoneMiner.StoneProbe probe) {
@@ -159,17 +159,17 @@ public class Field extends GameObject implements Visible, Visitable {
     }
     /**
      * Probes for finding paths and objects
-     * @param probe
+     * @param probe the probe that visits it
      */
     @Override
-    public void acceptProbe(Lumberman.LumberProbe probe) {
+    public void acceptProbe(Lumberjack.LumberProbe probe) {
         probe.addInfo(isSteppable());
         if (obj != null)
             obj.acceptProbe(probe);
     }
     /**
      * Probes for finding paths and objects
-     * @param probe
+     * @param probe the probe that visits it
      */
     @Override
     public void acceptProbe(Warrior.AttackProbe probe) {
@@ -179,7 +179,7 @@ public class Field extends GameObject implements Visible, Visitable {
     }
     /**
      * Probes for finding paths and objects
-     * @param probe
+     * @param probe the probe that visits it
      */
     public void acceptProbe(SimpleProbe probe) {
         probe.addInfo(isSteppable());
@@ -188,7 +188,7 @@ public class Field extends GameObject implements Visible, Visitable {
     }
     /**
      * Probes for finding paths and objects
-     * @param probe
+     * @param probe the probe that visits it
      */
     public void acceptProbe(Transporter.RoadProbe probe) {
         probe.addInfo(isClear());
@@ -197,7 +197,7 @@ public class Field extends GameObject implements Visible, Visitable {
     }
     /**
      * Probes for finding paths and objects
-     * @param probe
+     * @param probe the probe that visits it
      */
     public void acceptProbe(Ork.OrkProbe probe) {
         probe.addInfo(isSteppable());

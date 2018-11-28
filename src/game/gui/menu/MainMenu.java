@@ -31,6 +31,7 @@ import static game.gui.Main.saves;
 public class MainMenu {
     /**
      * App's defauult window
+     * @return  the active window
      */
     static private Stage GetWindow(){
         return Main.getPrimaryStage();

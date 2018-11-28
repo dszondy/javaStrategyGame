@@ -9,36 +9,82 @@ import game.model.world.Field;
 
 import java.io.Serializable;
 
+/**
+ * Worker, it searches for something that gives resource and collects it then retuns to it's hme with it
+ * @param <H> type of it's home
+ * @param <O> type of object it searches
+ */
 public abstract class ResourceCollector<H extends CollectorHouse, O extends WorldObject> extends FreeWalker {
+    /**
+     * Home of the object
+     */
     protected H home;
+    /**
+     * The path for the next collectable object
+     */
     protected Path<O> plan = null;
+    /**
+     * Path home
+     */
     protected Path<BuildingSign> hPath = null;
 
+    /**
+     * Sets the action it does with the object it found
+     * @param u action class
+     */
     protected void setAction(Action u) {
         this.util = u;
     }
 
+    /**
+     * Stores the action
+     */
     protected Action util;
+    /**
+     * The resource it carries
+     */
     protected CarriableResource carries;
-        static abstract class Action implements Serializable {
+
+    /**
+     * The class that stores it behaviour when reaches it's destination
+     */
+    static abstract class Action implements Serializable {
             protected ResourceCollector worker;
             abstract public CarriableResource get(WorldObject obj);
         }
-        public ResourceCollector(H home) {
+
+    /**
+     * Creates a resource collector
+     * @param home the home of the object
+     */
+    public ResourceCollector(H home) {
             super(home.getEntry().getLocation());
             this.home = home;
         }
 
-        public boolean hasResource() {
+
+    /**
+     * @return true if carries a resource
+     */
+    public boolean hasResource() {
             return carries!=null;
         }
-        public CarriableResource pickResource(){
+
+    /**
+     * clears it's resource
+     * @return the resource it stored
+     */
+    public CarriableResource pickResource(){
             CarriableResource r = carries;
             carries = null;
             return r;
         }
 
-        public boolean tick() {
+    /**
+     * Steps, searches for a resource, goes to it, and when it has a resource goes back to it's home
+     * @return
+     */
+    public boolean tick() {
             if (!home.isAlive()) {
                 die();
                 return false;
@@ -49,7 +95,7 @@ public abstract class ResourceCollector<H extends CollectorHouse, O extends Worl
                 if (!hasResource())
                     plan = FindObject();
                 if (plan == null) {
-                    hPath = Path.FindPath(getPlace(), home.getEntry(), Integer.MAX_VALUE);
+                    hPath = Path.FindPath(getLocation(), home.getEntry(), Integer.MAX_VALUE);
                 }
             }
 
@@ -64,7 +110,7 @@ public abstract class ResourceCollector<H extends CollectorHouse, O extends Worl
                     plan = null;
                     return true;
                 }
-                this.setPlace(next);
+                this.setLocation(next);
                 return true;
             }
             if (hPath != null) {
@@ -77,17 +123,31 @@ public abstract class ResourceCollector<H extends CollectorHouse, O extends Worl
                     plan = null;
                     return true;
                 }
-                this.setPlace(next);
+                this.setLocation(next);
                 return true;
             }
             return true;
         }
 
-        public Path<O> FindObject(){
+    /**
+     * Searches for a destination object with a default value
+     * @return path to an object
+     */
+    public Path<O> FindObject(){
             return FindObject(12);
         }
-        public abstract Path<O> FindObject(int max);
 
+    /**
+     * Searches for it's destination object
+     * @param max max distance
+     * @return path to the object
+     */
+    public abstract Path<O> FindObject(int max);
+
+    /**
+     * It lives it ticks
+     * @return
+     */
         @Override
         public boolean canEverTick() {
             return true;

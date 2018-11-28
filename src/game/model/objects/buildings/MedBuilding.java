@@ -6,7 +6,18 @@ import game.model.world.Field;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+/**
+ * Just another building, with size "BIG", means it's 9 field big(3*3)
+ *  _____________________
+ *  <><>    <-Building
+ *   <><>
+ *      <> <-entry sign
+ */
 
+/**
+ * Creates a building with sign
+ * @param p the location of the "sign"
+ */
 public abstract class MedBuilding extends Building {
     MedBuilding(Field p) {
         super(p);
@@ -15,15 +26,28 @@ public abstract class MedBuilding extends Building {
         }
     }
 
+    /**
+     * Returns the fields it wolud be on
+     * @param p position right down from it
+     * @return fields of null if it's out of bounds
+     */
     public static Field[] getOccupy(Field p) {
         List<Field> l = new LinkedList<Field>();
-        l.add(p);
-        l.add(p.getNeighbour(Directions.L));
-        l.add(p.getNeighbour(Directions.LU));
-        l.add(p.getNeighbour(Directions.LU).getNeighbour(Directions.L));
+        try {
+            l.add(p);
+            l.add(p.getNeighbour(Directions.L));
+            l.add(p.getNeighbour(Directions.LU));
+            l.add(p.getNeighbour(Directions.LU).getNeighbour(Directions.L));
+        }catch (NullPointerException e){
+            return null;
+        }
         return Arrays.copyOf(l.toArray(), l.size(), Field[].class);
     }
-
+    /**
+     * check's if we can build this
+     * @param p field
+     * @return true if it's possible
+     */
     public static boolean checkBuildable(Field p) {
         if (!p.isClear())
             return false;
@@ -38,7 +62,9 @@ public abstract class MedBuilding extends Building {
         }
         return true;
     }
-
+    /**
+     * The object dies and removes itself
+     */
     public void die() {
         super.die();
         Field[] fields = getOccupy(this.location);

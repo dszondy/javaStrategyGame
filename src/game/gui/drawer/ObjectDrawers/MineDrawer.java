@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 
+/**
+ * Draws a mine
+ */
 public class MineDrawer extends BuildingDrawer {
     static private javafx.scene.image.Image defImg = new javafx.scene.image.Image("file:resources\\Mine.png");
 

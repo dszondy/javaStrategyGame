@@ -9,15 +9,32 @@ import game.model.world.Field;
 
 import java.util.*;
 
+/**
+ * Enemy that destroys the players buildings
+ */
 public class Ork extends FreeWalker {
+    /**
+     * The place it came from
+     */
     private EnemyStronghold home;
+    /**
+     * THe path it walks on
+     */
     private Path<Building> plan;
 
+    /**
+     * Creates an ork
+     * @param p it's home
+     */
     public Ork(EnemyStronghold p) {
         super(p.getLocation().getNeighbour(Directions.RD));
         home = p;
     }
 
+    /**
+     * Finds a path to one of the player's buildings or it's home and moves on it.
+     * @return true while alive
+     */
     @Override
     public boolean tick() {
         if (!home.isAlive()) {
@@ -30,9 +47,9 @@ public class Ork extends FreeWalker {
             if (new Random().nextGaussian() > 0) {
                 plan = FindAttackable(16);
                 if (plan == null)
-                    plan = Path.FindPath(this.getPlace(), home, Integer.MAX_VALUE);
+                    plan = Path.FindPath(this.getLocation(), home, Integer.MAX_VALUE);
             } else
-                plan = Path.FindPath(this.getPlace(), home, Integer.MAX_VALUE);
+                plan = Path.FindPath(this.getLocation(), home, Integer.MAX_VALUE);
         }
         if (plan != null) {
             Field next = plan.Next();
@@ -46,15 +63,20 @@ public class Ork extends FreeWalker {
                 plan = null;
                 return true;
             }
-            this.setPlace(next);
+            this.setLocation(next);
             return true;
         }
         return true;
     }
 
+    /**
+     * Searches for a buildin it can attack
+     * @param max maximum distance from the starting positin
+     * @return a path to an object or null if not found
+     */
     public Path<Building> FindAttackable(int max) {
         try {
-            Field start = this.getPlace();
+            Field start = this.getLocation();
             Map<Field, OrkProbe> finished = new HashMap<>();
             PriorityQueue<OrkProbe> notUsed = new PriorityQueue<>(new Comparator<OrkProbe>() {
                 public int compare(OrkProbe o1, OrkProbe o2) {
@@ -93,6 +115,9 @@ public class Ork extends FreeWalker {
         return DrawerCreator.getDrawer(this);
     }
 
+    /**
+     * Probe object for collection info of fields
+     */
     public class OrkProbe extends FreeProbe<Building> {
         public OrkProbe(Field from, Field to, int distance) {
             super(from, to, distance);

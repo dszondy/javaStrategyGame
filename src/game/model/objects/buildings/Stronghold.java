@@ -11,14 +11,31 @@ import java.util.ArrayList;
 
 import static game.model.resources.Resource.SWORD;
 
+/**
+ * Stronghold for the player.
+ * Warriors are in it, it automatically sends them to attack enemies.
+ * For createing warriors it need's SWORD-s.
+ */
 public class Stronghold extends BigBuilding {
-
+    /**
+     * The cound of the warriors inside the stronghold
+     */
     private int warriorsInside = 0;
+
+    /**
+     * Creates an empty stronghold
+     * @param p
+     */
     public Stronghold(Field p) {
         super(p);
         priceToEnable(3, 10);
     }
 
+    /**
+     * If it has more than 4 warriors it sends 1 to attack, and asks for resource to train a new one.
+     * If has less, it collect the SWORDS from the entry.
+     * @return
+     */
     @Override
     public boolean tick() {
         if (isAlive()) {
@@ -48,10 +65,19 @@ public class Stronghold extends BigBuilding {
         return false;
     }
 
+    /**
+     * A warrior returned, it adds it to the warriors inside.
+     * @param warrior
+     */
     public void acceptReturning(Warrior warrior) {
         warriorsInside++;
         warrior.die();
     }
+
+    /**
+     * if an ork attacks it, it kills the ork, and if has no warriorsInside, dies.
+     * @param ork
+     */
     public void OrkEnters(Ork ork){
         ork.die();
         if(warriorsInside<=0)
@@ -59,6 +85,7 @@ public class Stronghold extends BigBuilding {
         else
             warriorsInside--;
     }
+
     public Drawer getDrawer() {
         return DrawerCreator.getDrawer(this);
     }

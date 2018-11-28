@@ -35,7 +35,7 @@ public class Rock extends WorldObject {
 
     /**
      * Fills the prove with its pointer, so the stone miner can find it.
-     * @param probe
+     * @param probe the probe that visits it
      */
     public void acceptProbe(StoneMiner.StoneProbe probe) {
         probe.addInfo(canWalkTrough(), this);
@@ -49,7 +49,7 @@ public class Rock extends WorldObject {
 
     /**
      * Returns true if it managed to mine stone (had STONE)
-     * @return
+     * @return true if successfull
      */
     public boolean mineStone() {
         boolean success = false;

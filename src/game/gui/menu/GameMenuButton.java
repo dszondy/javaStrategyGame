@@ -12,6 +12,11 @@ public class GameMenuButton extends Button {
     private final int buttonW = 300;
     private final int buttonH = 50;
 
+    /**
+     * Creates the button
+     * @param text
+     * @param clickHandler
+     */
     public GameMenuButton(String text, EventHandler<ActionEvent> clickHandler) {
         super(text);
         this.setPrefSize(buttonW, buttonH);

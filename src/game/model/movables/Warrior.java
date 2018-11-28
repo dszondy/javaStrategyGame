@@ -11,25 +11,48 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-
+/**
+ * The players warriors. These can destroy the enemy fortresses
+ */
 public class Warrior extends FreeWalker {
+    /**
+     * road to the enemy fortress
+     */
     private Path<EnemyStronghold> plan;
+    /**
+     * path home
+     */
     private Path<Stronghold> wayHome;
+    /**
+     * Home of the object
+     */
     private Stronghold home;
+    /**
+     * The enemy it wants to attack
+     */
     private EnemyStronghold target;
+
+    /**
+     * creates a warrior and chooses it's target.
+     * @param home
+     */
     public Warrior(Stronghold home) {
         super(home.getEntry().getLocation());
-        home = home;
+        this.home = home;
         target = FindEnemy(22);
     }
 
+    /**
+     * Searches for a path to it's target, goes to it and attacks. If cant, it returns to it's home
+     * @return
+     */
     public boolean tick() {
         if (!this.isAlive())
             return false;
         if (target!=null&&target.isAlive()) {
             if (plan == null) {
                 if (target.isAlive())
-                    plan = Path.FindPath(getPlace(), target, Integer.MAX_VALUE);
+                    plan = Path.FindPath(getLocation(), target, Integer.MAX_VALUE);
             }
             if (plan != null) {
                 Field next = plan.Next();
@@ -43,7 +66,7 @@ public class Warrior extends FreeWalker {
                     plan = null;
                     return true;
                 }
-                this.setPlace(next);
+                this.setLocation(next);
                 return true;
             }
             return true;
@@ -53,7 +76,7 @@ public class Warrior extends FreeWalker {
             return isAlive();
         }
         if (wayHome == null)
-            wayHome = Path.FindPath(getPlace(), home, Integer.MAX_VALUE);
+            wayHome = Path.FindPath(getLocation(), home, Integer.MAX_VALUE);
         if (wayHome != null) {
             Field next = wayHome.Next();
             if (next == null) {
@@ -64,14 +87,19 @@ public class Warrior extends FreeWalker {
                 plan = null;
                 return true;
             }
-            this.setPlace(next);
+            this.setLocation(next);
             return true;
         }
         return true;
     }
 
+    /**
+     * Finds an enemy stronghold
+     * @param max max distance
+     * @returnthe stronghold it found or null if none
+     */
     public EnemyStronghold FindEnemy(int max) {
-        Field start = this.getPlace();
+        Field start = this.getLocation();
         Map<Field, AttackProbe> finished = new HashMap<>();
         PriorityQueue<AttackProbe> notUsed = new PriorityQueue<>(new Comparator<AttackProbe>() {
             public int compare(AttackProbe o1, AttackProbe o2) {
@@ -106,6 +134,9 @@ public class Warrior extends FreeWalker {
         return DrawerCreator.getDrawer(this);
     }
 
+    /**
+     * probe for collecting field info
+     */
     public class AttackProbe extends FreeProbe<EnemyStronghold> {
         public AttackProbe(Field from, Field to, int distance) {
             super(from, to, distance);

@@ -78,7 +78,7 @@ public class World implements Serializable {
 
     /**
      * Adds an object to the "tickables" set, so next turn it will be ticked too.
-     * @param o
+     * @param o the object to addd
      */
     public void addToTickList(Tickable o) {
         tickables.add(o);
@@ -164,7 +164,7 @@ public class World implements Serializable {
 
     /**
      * Returns the main building's reference. Should not be used. Use the MainBuilding.getAddress() for this purpose.
-     * @return
+     * @return the main building
      */
     @Deprecated
     public MainBuilding getPlayersMainBuilding() {
@@ -173,7 +173,7 @@ public class World implements Serializable {
 
     /**
      * Should not be used. The MainBuilding sets it in it's constructor
-     * @param playersMainBuilding
+     * @param playersMainBuilding the main building we want to set
      */
     @Deprecated
     public void setPlayersMainBuilding(MainBuilding playersMainBuilding) {

@@ -19,11 +19,18 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Draws an empty field (can be clicked for building
+ */
 public class EmptyFieldDrawer extends FieldDrawer {
     public EmptyFieldDrawer(Point stdpos, Field f) {
         super(stdpos, f);
     }
 
+    /**
+     * Builds the object with the given name.
+     * @param name
+     */
     void Build(String name) {
         synchronized (GameObject.getWorld()){
         if (checkBuildables().contains(name))
@@ -52,6 +59,10 @@ public class EmptyFieldDrawer extends FieldDrawer {
         }
     }
 
+    /**
+     * Creates a list of the object that can be build on it
+     * @return the list of buildable obbjects
+     */
     public List<String> checkBuildables() {
         List<String> buildables = new ArrayList<>();
         if (field.isClear())
@@ -69,16 +80,25 @@ public class EmptyFieldDrawer extends FieldDrawer {
         return buildables;
     }
 
+    /**
+     * Fills the building window
+     * @return building window pane
+     */
     public Pane getWindowData() {
         FlowPane pane = new FlowPane();
         pane.setOrientation(Orientation.VERTICAL);
         for (String s : checkBuildables()) {
-            GameMenuButton b = new GameMenuButton(s, (EventHandler) event -> Build(s));
+            GameMenuButton b = new GameMenuButton(s, (EventHandler) event ->  Build(s));
             pane.getChildren().add(b);
         }
         return pane;
     }
 
+    /**
+     * sets the click handler too
+     * @param state the game state for drawing
+     * @return the node
+     */
     public Node draw(GuiState state) {
         Node d = super.draw(state);
         d.setOnMouseClicked(event -> state.setControlWindow(new InnerWindow(getWindowData(), new javafx.event.EventHandler<ActionEvent>() {

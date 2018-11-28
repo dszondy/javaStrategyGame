@@ -6,75 +6,161 @@ import game.model.objects.*;
 import game.model.objects.buildings.*;
 import game.model.world.Field;
 
+/**
+ * Creates a drawer (the objects of the "model" package only call this form the package)
+ */
 public class DrawerCreator {
-    public static Drawer getDrawer(Field field) {
-        return field.isClear() ?new EmptyFieldDrawer(field.getLocation(), field) : new FieldDrawer(field.getLocation(), field);
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
+    public static Drawer getDrawer(Field obj) {
+        return obj.isClear() ?new EmptyFieldDrawer(obj.getLocation(), obj) : new FieldDrawer(obj.getLocation(), obj);
     }
 
-    public static Drawer getDrawer(Sign sign) {
-        return new SignDrawer(sign.getLocation().getLocation(), sign.getDirections(), sign);
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
+    public static Drawer getDrawer(Sign obj) {
+        return new SignDrawer(obj.getLocation().getLocation(), obj.getDirections(), obj);
+    }
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
+    public static Drawer getDrawer(BuildingSign obj) {
+        return new BuildingSignDrawer(obj.getLocation().getLocation(), obj.getDirections(), obj, obj.getB().isEnabled());
+    }
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
+    public static Drawer getDrawer(Tree obj) {
+        return new TreeDrawer(obj.getLocation().getLocation());
+    }
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
+
+    public static Drawer getDrawer(Rock obj) {
+        return new RockDrawer(obj.getLocation().getLocation());
     }
 
-    public static Drawer getDrawer(BuildingSign sign) {
-        return new BuildingSignDrawer(sign.getLocation().getLocation(), sign.getDirections(), sign);
+
+    public static Drawer getDrawer(MainBuilding obj) {
+        return new MainBuildingDrawer(obj.getLocation().getLocation(), obj);
     }
 
-    public static Drawer getDrawer(Tree t) {
-        return new TreeDrawer(t.getLocation().getLocation());
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
+    public static Drawer getDrawer(LumbererHouse obj) {
+        return new WarehouseDrawer(obj.getLocation().getLocation());
     }
 
-    public static Drawer getDrawer(Rock t) {
-        return new RockDrawer(t.getLocation().getLocation());
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
+    public static Drawer getDrawer(StoneMine obj) {
+        return new WarehouseDrawer(obj.getLocation().getLocation());
+    }
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
+    public static Drawer getDrawer(Road obj) {
+        return new RoadDrawer(obj.getLocation().getLocation(), obj.getDirections());
+    }
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
+    public static Drawer getDrawer(WorldObject obj) {
+        return new NullDrawer(obj.getLocation().getLocation());
     }
 
-    public static Drawer getDrawer(MainBuilding b) {
-        return new MainBuildingDrawer(b.getLocation().getLocation(), b);
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
+    public static Drawer getDrawer(Lumberjack obj) {
+        return new LumberjackDrawer(obj.getLocation().getLocation());
     }
-
-    public static Drawer getDrawer(LumbererHouse b) {
-        return new WarehouseDrawer(b.getLocation().getLocation());
-    }
-
-    public static Drawer getDrawer(StoneMine b) {
-        return new WarehouseDrawer(b.getLocation().getLocation());
-    }
-
-    public static Drawer getDrawer(Road r) {
-        return new RoadDrawer(r.getLocation().getLocation(), r.getDirections());
-    }
-
-    public static Drawer getDrawer(WorldObject o) {
-        return new NullDrawer(o.getLocation().getLocation());
-    }
-
-    public static Drawer getDrawer(Lumberman m) {
-        return new LumberjackDrawer(m.getLocation().getLocation());
-    }
-
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
     public static Drawer getDrawer(StoneMiner m) {
         return new MinerDrawer(m.getLocation().getLocation());
     }
-
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
     public static Drawer getDrawer(Transporter m) {
         return new HorseDrawer(m.getLocation().getLocation());
     }
-
-    public static Drawer getDrawer(Ork o) {
-        return new OrkDrawer(o.getLocation().getLocation());
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
+    public static Drawer getDrawer(Ork obj) {
+        return new OrkDrawer(obj.getLocation().getLocation());
     }
 
     public static Drawer getDrawer(EnemyStronghold obj) {
         return new OrkStrongholdDrawer(obj.getLocation().getLocation());
     }
-
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
     public static Drawer getDrawer(Warrior obj) {
         return new WarriorDrawer(obj.getLocation().getLocation());
     }
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
     public static Drawer getDrawer(Stronghold obj) {
         return new StrongholdDrawer(obj.getLocation().getLocation());
     }
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
     public static Drawer getDrawer(CarriableResource obj){return new TransportedResourceDrawer(obj.getLocation().getLocation(), obj.getR());}
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
     public static Drawer getDrawer(Mine obj){return new MineDrawer(obj.getLocation().getLocation());}
+    /**
+     * Drawer for the obj
+     * @param obj the object which we want to draw
+     * @return the drawer
+     */
     public static Drawer getDrawer(Blacksmith obj){return new BlacksmithDrawer(obj.getLocation().getLocation());}
 
 }

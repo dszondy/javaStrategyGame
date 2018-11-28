@@ -151,6 +151,9 @@ public class Main extends Application {
      * @param s - identifier of the saved game
      */
     public static void LoadGame(String s) {
+        primaryStage.close();
+        setPrimaryStage(new Stage());
+        root = new AnchorPane();
         primaryStage.setScene(new Scene(root, screenW, screenH));
         try {
             ObjectInputStream is = new ObjectInputStream(new GZIPInputStream(new FileInputStream(new File("savedGames/" + s + ".bin"))));
@@ -192,6 +195,11 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Saces the world
+     * @param s the name of the save
+     * @param w the world it saves
+     */
     public static void Save(String s, World w){
         synchronized (w){
         try (ObjectOutputStream os = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream(new File("savedGames/" + s + ".bin"))))) {

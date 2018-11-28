@@ -6,6 +6,10 @@ import game.model.movables.StoneMiner;
 import game.model.world.Field;
 
 public class StoneMine extends CollectorHouse<StoneMiner> {
+    /**
+     * Creates a stne mine
+ * @param p the entry's location
+     */
     public StoneMine(Field p) {
         super(p, 2);
         StoneMine self = this;
@@ -16,7 +20,6 @@ public class StoneMine extends CollectorHouse<StoneMiner> {
             }
         });
     }
-
 
     public Drawer getDrawer() {
         return DrawerCreator.getDrawer(this);

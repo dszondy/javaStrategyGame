@@ -7,8 +7,13 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Draws a resource
+ */
 public class TransportedResourceDrawer extends MovableDrawer {
+    /**
+     * map for resource type and image
+     */
     static Map<Resource, Image> imageMap = null;
     private Resource type;
 

@@ -7,6 +7,9 @@ import javafx.scene.image.Image;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
+/**
+ * Draws a tree
+ */
 public class TreeDrawer extends Drawer {
     static private Image defImg = new Image("file:resources\\Tree1.png");
 

@@ -9,6 +9,10 @@ import game.model.world.Field;
  * Entry for a player controlled building.
  */
 public class BuildingSign extends Sign {
+    public Building getB() {
+        return b;
+    }
+
     /**
      * The building it enters
      */

@@ -60,14 +60,16 @@ public class InGameDrawer {
                     case DOWN:
                         state.addY();
                         break;
+                        /*
                     case PLUS:
                         state.addZoom();
                         break;
                     case MINUS:
                         state.subZoom();
                         break;
+                        */
                     default:
-                        update = true;
+                        update = false;
                         break;
                 }
                 if (update)

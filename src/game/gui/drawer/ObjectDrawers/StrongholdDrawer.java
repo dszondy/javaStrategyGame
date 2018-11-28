@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 
+/**
+ * For drawing  a stronghold
+ */
 public class StrongholdDrawer extends BuildingDrawer {
     static private javafx.scene.image.Image defImg = new javafx.scene.image.Image("file:resources\\Stronghold.png");
 

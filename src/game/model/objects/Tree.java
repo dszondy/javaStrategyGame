@@ -3,7 +3,7 @@ package game.model.objects;
 import game.gui.drawer.Drawer;
 import game.gui.drawer.DrawerCreator;
 import game.model.Directions;
-import game.model.movables.Lumberman;
+import game.model.movables.Lumberjack;
 import game.model.world.Field;
 
 import java.util.Random;
@@ -64,7 +64,7 @@ public class Tree extends WorldObject {
     /**
      * Handles a lumberman probe, so the lumberman could find a tree.
      */
-    public void acceptProbe(Lumberman.LumberProbe probe) {
+    public void acceptProbe(Lumberjack.LumberProbe probe) {
         probe.addInfo(canWalkTrough(), this);
     }
 
